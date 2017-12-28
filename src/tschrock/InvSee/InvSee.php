@@ -25,17 +25,18 @@ class InvSee extends PluginBase {
 
     private $originalInvs = [];
 
-    public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
+    public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
         switch ($command->getName()) {
             case "invsee":
-                if ($sender instanceof \pocketmine\Player) {
+                if ($sender instanceof Player) {
                     if (count($args) === 0 || $args[0] == "clear") {
                         if (isset($this->originalInvs[$sender->getId()])) {
                             $sender->getInventory()->setContents($this->originalInvs[$sender->getId()]);
                             unset($this->originalInvs[$sender->getId()]);
                         }
                         else {
-                        $sender->sendMessage("Usage: /invsee <player>   or   /invsee clear");
+                        $sender->sendMessage("§5Please use: §2/invsee <player>   §5or   §2/invsee clear");
+                           return true;
                         }
                     } else {
                         if (!isset($this->originalInvs[$sender->getId()])) {
@@ -44,15 +45,17 @@ class InvSee extends PluginBase {
                                 $this->originalInvs[$sender->getId()] = $sender->getInventory()->getContents();
                                 $sender->getInventory()->setContents($player->getInventory()->getContents());
                             } else {
-                                $sender->sendMessage("That player doesn't exist or isn't online!");
+                                $sender->sendMessage("§cThat player doesn't exist or isn't online!");
+                                return true;
                             }
                         } else {
-                            $sender->sendMessage("You are already looking at a player's inventory. Use `/invsee` to stop looking.");
+                            $sender->sendMessage("§dYou are already looking at a player's inventory. Use §5`/invsee` §6to stop looking.");
+                            return true;
                         }
                     }
                 } else {
                     if (count($args) === 0) {
-                        $sender->sendMessage("Usage: /invsee <player>");
+                        $sender->sendMessage("§5Please use: §2/invsee <player>");
                     } else {
                         $player = $this->getServer()->getPlayerExact(array_shift($args));
                         if ($player !== null) {
@@ -61,7 +64,8 @@ class InvSee extends PluginBase {
                                 $sender->sendMessage($item->getCount() . " " . $item->getName() . " (" . $item->getId() . ":" . $item->getDamage() . ")");
                             }
                         } else {
-                                $sender->sendMessage("That player doesn't exist or isn't online!");
+                                $sender->sendMessage("§cThat player doesn't exist or isn't online!");
+                            return true;
                         }
                     }
                 }

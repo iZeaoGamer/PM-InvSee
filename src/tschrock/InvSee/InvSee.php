@@ -28,7 +28,7 @@ class InvSee extends PluginBase {
     public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
         switch ($command->getName()) {
             case "invsee":
-                if ($sender instanceof pocketmine\Player) {
+                if ($sender instanceof \pocketmine\Player) {
                     if (count($args) === 0 || $args[0] == "clear") {
                         if (isset($this->originalInvs[$sender->getId()])) {
                             $sender->getInventory()->setContents($this->originalInvs[$sender->getId()]);

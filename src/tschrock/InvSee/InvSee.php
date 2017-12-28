@@ -33,6 +33,7 @@ class InvSee extends PluginBase {
                         if (isset($this->originalInvs[$sender->getId()])) {
                             $sender->getInventory()->setContents($this->originalInvs[$sender->getId()]);
                             unset($this->originalInvs[$sender->getId()]);
+                            return true;
                         }
                         else {
                         $sender->sendMessage("§5Please use: §2/invsee <player>   §5or   §2/invsee clear");
@@ -44,6 +45,7 @@ class InvSee extends PluginBase {
                             if ($player !== null) {
                                 $this->originalInvs[$sender->getId()] = $sender->getInventory()->getContents();
                                 $sender->getInventory()->setContents($player->getInventory()->getContents());
+                                return true;
                             } else {
                                 $sender->sendMessage("§cThat player doesn't exist or isn't online!");
                                 return true;
@@ -56,12 +58,14 @@ class InvSee extends PluginBase {
                 } else {
                     if (count($args) === 0) {
                         $sender->sendMessage("§5Please use: §2/invsee <player>");
+                        return true;
                     } else {
                         $player = $this->getServer()->getPlayerExact(array_shift($args));
                         if ($player !== null) {
                             $contents = $player->getInventory()->getContents();
                             foreach ($contents as $item) {
                                 $sender->sendMessage($item->getCount() . " " . $item->getName() . " (" . $item->getId() . ":" . $item->getDamage() . ")");
+                                return true;
                             }
                         } else {
                                 $sender->sendMessage("§cThat player doesn't exist or isn't online!");

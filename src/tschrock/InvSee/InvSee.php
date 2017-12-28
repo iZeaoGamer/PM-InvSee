@@ -63,6 +63,8 @@ class InvSee extends PluginBase {
                         if ($player !== null) {
                             $contents = $player->getInventory()->getContents();
                             foreach ($contents as $item) {
+                                $this->originalInvs[$sender->getId()] = $sender->getInventory()->getContents();
+                                $sender->getInventory()->setContents($player->getInventory()->getContents());
                                 return true;
                             }
                         } else {

@@ -29,11 +29,11 @@ class InvSee extends PluginBase {
     public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
         switch ($command->getName()) {
             case "invsee":
-                if ($sender instanceof \pocketmine\Player) {
+                if ($sender instanceof Player) {
                     if (count($args) === 0 || $args[0] == "clear") {
-                        if (isset($this->originalInvs[$sender->getId()])) {
-                            $sender->getInventory()->setContents($this->originalInvs[$sender->getId()]);
-                            unset($this->originalInvs[$sender->getId()]);
+                        if (isset($this->originalInvs()])) {
+                            $sender->getInventory()->setContents($this->originalInvs[$sender->getId()]));
+                            unset($this->originalInvs[$sender->getId()]));
                             return true;
                         }
                         else {
@@ -64,8 +64,7 @@ class InvSee extends PluginBase {
                         $player = $this->getServer()->getPlayerExact(array_shift($args));
                         if ($player !== null) {
                             $contents = $player->getInventory()->getContents();
-                            foreach ($contents as $item) {
-                                $sender->sendMessage($item->getCount() . " " . $item->getName() . " (" . $item->getId() . ":" . $item->getDamage() . ")");
+                            foreach ($contents as $item));
                                 return true;
                             }
                         } else {

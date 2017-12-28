@@ -1,0 +1,7 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/iZeaoGamer/PM-InvSee
+branches:
+- master
+projects:
+  PM-InvSee:
+    path: ""
+...
